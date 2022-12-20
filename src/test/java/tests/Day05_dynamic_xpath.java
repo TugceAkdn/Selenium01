@@ -1,6 +1,7 @@
 package tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,13 +24,14 @@ public class Day05_dynamic_xpath {
     }
 
     @Test
-    public void dynamicXpath(){
+    public void dynamicXpath() {
 
         // XPATH = //*[.= 'TEXT OF THE ELEMENT ' ]
 
         //        Verify if "Username : Admin" is text is displayed on the page
+        //  //*[.='Username : Admin'] return the element whose text = Username : Admin
 
-        WebElement usernameText =driver.findElement(By.xpath("//*[.='Username : Admin']"));
+        WebElement usernameText = driver.findElement(By.xpath("//*[.='Username : Admin']"));
         Assert.assertTrue(usernameText.isDisplayed());
 
         //        Verify if "Password : admin123" text is displayed on the page
@@ -37,15 +39,28 @@ public class Day05_dynamic_xpath {
         Assert.assertTrue(passwordText.isDisplayed());
 
         // 2. XPATH = //[(text()='TEXT OF THE ELEMENT')]
+
         WebElement userNameText1 = driver.findElement(By.xpath("//*[(text()='Username : Admin')]"));
         Assert.assertTrue(userNameText1.isDisplayed());
 
+        //3.XPATH = // //*[contains(text), 'PARTIAL OR FULL TEXT OF THE ELEMENT') ]
+        //Verify if Password : admin123 text is displayed on the page
 
+        WebElement passwordText1 = driver.findElement(By.xpath("//*[contains(text(),'Password : admin ']"));
+        Assert.assertTrue(passwordText1.isDisplayed());
 
-
+        //All the same thing.Suggestion is full text/
 
     }
 
 
+       @After
+
+     public void tearDown(){
+
+       driver.quit();
+
+
+    }
 }
 
